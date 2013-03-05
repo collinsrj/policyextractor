@@ -1,0 +1,83 @@
+<PermsAndMethods>
+	<permission name="java.awt.AWTPermission">
+		<target name="accessClipboard" />
+		<target name="accessEventQueue" />
+		<target name="accessSystemTray" />
+		<target name="createRobot" />
+		<target name="fullScreenExclusive" />
+		<target name="listenToAllAWTEvents" />
+		<target name="readDisplayPixels" />
+		<target name="replaceKeyboardFocusManager" />
+		<target name="setAppletStub" />
+		<target name="setWindowAlwaysOnTop" />
+		<target name="showWindowWithoutWarningBanner" />
+		<target name="toolkitModality" />
+		<target name="watchMousePointer" />
+	</permission>
+	<permission name="javax.sound.sampled.AudioPermission">
+		<target name="play" />
+		<target name="record" />
+	</permission>
+	<permission name="javax.security.auth.AuthPermission">
+		<target name="doAs" />
+		<target name="doAsPrivileged" />
+		<target name="getSubject" />
+		<target name="getSubjectFromDomainCombiner" />
+		<target name="setReadOnly" />
+		<target name="modifyPrincipals" />
+		<target name="modifyPublicCredentials" />
+		<target name="modifyPrivateCredentials" />
+		<target name="refreshCredential" />
+		<target name="destroyCredential" />
+		<target name="createLoginContext.{name}" />
+		<target name="getLoginConfiguration" />
+		<target name="createLoginConfiguration.{type}" />
+		<target name="refreshLoginConfiguration" />
+	</permission>
+	<permission name="javax.security.auth.kerberos.DelegationPermission">
+		<!-- TODO Not implemented -->
+	</permission>
+	<permission name="java.util.logging.LoggingPermission">
+		<target name="control" />
+	</permission>
+	<permission name="java.lang.management.ManagementPermission">
+		<target name="control" />
+		<target name="monitor" />
+	</permission>
+	<permission name="javax.management.MBeanServerPermission">
+		<target name="createMBeanServer" />
+		<target name="findMBeanServer" />
+		<target name="newMBeanServer" />
+		<target name="releaseMBeanServer" />
+	</permission>
+	<permission name="javax.management.MBeanTrustPermission">
+		<target name="register" />
+	</permission>
+	<permission name="java.net.NetPermission">
+		<target name="setDefaultAuthenticator" />
+		<target name="requestPasswordAuthentication" />
+		<target name="specifyStreamHandler" />
+		<target name="setProxySelector" />
+		<target name="getProxySelector" />
+		<target name="setCookieHandler" />
+		<target name="getCookieHandler" />
+		<target name="setResponseCache" />
+		<target name="getResponseCache" />
+	</permission>
+	<permission name="java.util.PropertyPermission">
+		<target name="read" />
+		<target name="write" />
+	</permission>
+	<class signature="java.awt.Graphics2d" name="java/awt/Graphics2D">
+		<method signature="public abstract void setComposite(Composite comp)" />
+	</class>
+
+	<methodPermission securityManagerMethod="checkPermission"
+		permission="java.awt.AWTPermission" target="readDisplayPixels" owner="java/awt/Graphics2D" name="setComposite"
+		desc="(Ljava/awt/Composite;)V" />
+	<methodPermission securityManagerMethod="checkPermission"
+		permission="java.awt.AWTPermission" target="createRobot" owner="java/awt/Robot" name="<init>"
+		desc="()V" />
+
+</methodPermission>
+</PermsAndMethods>
