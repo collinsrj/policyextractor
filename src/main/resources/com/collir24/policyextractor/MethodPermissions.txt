@@ -122,6 +122,7 @@ java/lang/ThreadGroup	suspend	()V	java.lang.RuntimePermission	modifyThreadGroup
 java/net/Authenticator	requestPasswordAuthentication	(Ljava/net/InetAddress;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/net/PasswordAuthentication;	java.net.Permission	requestPasswordAuthentication	
 java/net/Authenticator	setDefault	(Ljava/net/Authenticator;)V	java.net.Permission	setDefaultauthenticator	
 java/net/DatagramSocket	<init>	()V	java.net.SocketPermission	localhost:{port}	listen
+java/net/DatagramSocket	<init>	(I)V	java.net.SocketPermission	localhost:{port}	listen
 java/net/DatagramSocket	getLocalAddress	()Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
 java/net/DatagramSocket	send	(Ljava/net/DatagramPacket;)V	java.net.SocketPermission	{host}:{port}	accept,connect,resolve
 java/net/HttpURLConnection	setFollowRedirects	(Z)V	java.lang.RuntimePermission	setFactory	

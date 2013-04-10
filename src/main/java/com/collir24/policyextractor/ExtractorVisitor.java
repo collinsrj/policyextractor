@@ -7,10 +7,15 @@ import org.objectweb.asm.Label;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
+import com.collir24.policyextractor.modulepermission.DatagramPermission;
 import com.collir24.policyextractor.modulepermission.FileInputStreamPermission;
 import com.collir24.policyextractor.modulepermission.FileOutputStreamPermission;
+import com.collir24.policyextractor.modulepermission.GetDeclaredFieldPermission;
 import com.collir24.policyextractor.modulepermission.PropertyPermission;
 import com.collir24.policyextractor.modulepermission.RandomAccessFilePermission;
+import com.collir24.policyextractor.modulepermission.LoadLibPermission;
+import com.collir24.policyextractor.modulepermission.LoadPermission;
+import com.collir24.policyextractor.modulepermission.SetPropertyPermission;
 import com.collir24.policyextractor.modulepermission.ThreadNamePermission;
 
 public class ExtractorVisitor extends MethodVisitor {
@@ -20,6 +25,7 @@ public class ExtractorVisitor extends MethodVisitor {
 	private int line;
 	private List<Object> stackConstants = new ArrayList<Object>();
 	private Boolean booleanOnStack = null;
+	private Integer intOnStack = null;
 
 	protected ExtractorVisitor(final ModulePermissions modulePermissions,
 			final String className) {
@@ -54,10 +60,20 @@ public class ExtractorVisitor extends MethodVisitor {
 				&& object instanceof String && object2 instanceof String) {
 			modulePermissions.add(new PropertyPermission(PERMISSIONS.get(key),
 					className, key, line, (String) object, (String) object2));
-		} else if (MethodPermissionKey.RANDOM_ACCESS_FILE_STRING_CONSTRUCTOR.equals(key)
-				&& object instanceof String && object2 instanceof String) {
-			modulePermissions.add(new RandomAccessFilePermission(PERMISSIONS.get(key),
-					className, key, line, (String) object, (String) object2));
+		} else if (MethodPermissionKey.RANDOM_ACCESS_FILE_STRING_CONSTRUCTOR
+				.equals(key)
+				&& object instanceof String
+				&& object2 instanceof String) {
+			modulePermissions.add(new RandomAccessFilePermission(PERMISSIONS
+					.get(key), className, key, line, (String) object,
+					(String) object2));
+		} else if (MethodPermissionKey.SET_PROPERTY
+				.equals(key)
+				&& object instanceof String
+				&& object2 instanceof String) {
+			modulePermissions.add(new SetPropertyPermission(PERMISSIONS
+					.get(key), className, key, line, (String) object,
+					(String) object2));
 		} else {
 			// we haven't found any more specific permission
 			addPermission(key);
@@ -94,6 +110,22 @@ public class ExtractorVisitor extends MethodVisitor {
 				.equals(key) && object instanceof String) {
 			modulePermissions.add(new RandomAccessFilePermission(PERMISSIONS
 					.get(key), className, key, line, (String) object));
+		} else if (MethodPermissionKey.GET_DECLARED_FIELD.equals(key)
+				&& object instanceof String) {
+			modulePermissions.add(new GetDeclaredFieldPermission(PERMISSIONS
+					.get(key), className, key, line, (String) object));
+		} else if (MethodPermissionKey.RUNTIME_LOAD.equals(key)
+				&& object instanceof String) {
+			modulePermissions.add(new LoadPermission(PERMISSIONS.get(key),
+					className, key, line, (String) object));
+		} else if (MethodPermissionKey.RUNTIME_LOAD_LIBRARY.equals(key)
+				&& object instanceof String) {
+			modulePermissions.add(new LoadLibPermission(PERMISSIONS.get(key),
+					className, key, line, (String) object));
+		} else if (MethodPermissionKey.DATAGRAM_CONSTRUCTOR.equals(key)
+				&& object instanceof Integer) {
+			modulePermissions.add(new DatagramPermission(PERMISSIONS.get(key),
+					className, key, line, ((Integer) object).intValue()));
 		} else {
 			// we haven't found any more specific permission
 			addPermission(key);
@@ -101,7 +133,10 @@ public class ExtractorVisitor extends MethodVisitor {
 	}
 
 	private void addPermission(MethodPermissionKey key) {
-		if (PERMISSIONS.contains(key)) {
+		if (MethodPermissionKey.DATAGRAM_CONSTRUCTOR.equals(key) && intOnStack != null) {
+			modulePermissions.add(new DatagramPermission(PERMISSIONS.get(key),
+					className, key, line, intOnStack));
+		} else if (PERMISSIONS.contains(key)) {
 			modulePermissions.add(new ModulePermission(PERMISSIONS.get(key),
 					className, key, line));
 		}
@@ -110,6 +145,13 @@ public class ExtractorVisitor extends MethodVisitor {
 	@Override
 	public void visitLdcInsn(Object cst) {
 		stackConstants.add(cst);
+	}
+
+	@Override
+	public void visitIntInsn(int opcode, int operand) {
+		if (opcode == Opcodes.SIPUSH) {
+			intOnStack = operand;
+		}
 	}
 
 	@Override
@@ -141,6 +183,7 @@ public class ExtractorVisitor extends MethodVisitor {
 	private void clear() {
 		stackConstants.clear();
 		booleanOnStack = null;
+		intOnStack = null;
 	}
 
 }

@@ -23,7 +23,15 @@ public class MethodPermissionKey {
 	public static final MethodPermissionKey RANDOM_ACCESS_FILE_CONSTRUCTOR = new MethodPermissionKey(
 			"java/io/RandomAccessFile","<init>","(Ljava/io/File;Ljava/lang/String;)V");
 	public static final MethodPermissionKey GET_DECLARED_FIELD = new MethodPermissionKey(
-			"java/lang/Class","getDeclaredField","(Ljava/lang/String;)Ljava/lang/reflect/Field;");
+			"java/lang/Class","getDeclaredField","(Ljava/lang/String;)Ljava/lang/reflect/Field;");	
+	public static final MethodPermissionKey RUNTIME_LOAD = new MethodPermissionKey(
+			"java/lang/Runtime","load","(Ljava/lang/String;)V");
+	public static final MethodPermissionKey RUNTIME_LOAD_LIBRARY = new MethodPermissionKey(
+			"java/lang/Runtime","loadLibrary","(Ljava/lang/String;)V");
+	public static final MethodPermissionKey SET_PROPERTY = new MethodPermissionKey(
+			"java/lang/System","setProperty","(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;");
+	public static final MethodPermissionKey DATAGRAM_CONSTRUCTOR = new MethodPermissionKey(
+			"java/net/DatagramSocket", "<init>", "(I)V");
 
 	public MethodPermissionKey(String owner, String name, String description) {
 		super();
