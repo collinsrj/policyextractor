@@ -2,91 +2,107 @@ package com.collir24.policyextractor;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Enumeration;
-import java.util.List;
+import java.util.jar.JarFile;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipException;
-import java.util.zip.ZipFile;
 
 import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassVisitor;
-import org.objectweb.asm.MethodVisitor;
-import org.objectweb.asm.Opcodes;
 
-/**
- * Hello world!
- * 
- */
 public class Extract {
 	private static final Logger LOGGER = Logger.getLogger(Extract.class
 			.getName());
-	private final List<ZipFile> files;
-	private final MethodPermissions permissions = new MethodPermissions();
+	private final String[] filePaths;
 
 	public Extract(String[] filePaths) {
-		files = new ArrayList<ZipFile>(filePaths.length);
-		for (String filePath : filePaths) {
-			try {
-				ZipFile file = new ZipFile(new File(filePath));
-				files.add(file);
-			} catch (ZipException e) {
-				throw new IllegalArgumentException(e);
-			} catch (IOException e) {
-				throw new IllegalArgumentException(e);
-			}
-		}
-
+		this.filePaths = filePaths;
 	}
 
 	public static void main(String[] args) throws IOException {
 		if (args.length < 1) {
 			System.out
-					.println("Usage: java com.collir24.policyextractor.Extract <jar_file>");
+					.println("Usage: java com.collir24.policyextractor.Extract <file_path>");
 			System.exit(1);
 		}
-
 		Extract extract = new Extract(args);
 		extract.examineFiles();
 	}
 
 	public void examineFiles() {
-		for (ZipFile file : files) {
-			LOGGER.info("Looking at: " + file.getName());
+		for (String filePath : filePaths) {
 			try {
-				visitClasses(file);
+				JarFile file = new JarFile(new File(filePath));
+				examineFile(file);
+			} catch (ZipException e) {
+				System.err.println("Bad jar: " + filePath);
 			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, "Problem looking at: " + file, e);
+				throw new IllegalArgumentException(e);
 			}
 		}
 	}
 
-	private void visitClasses(ZipFile file)
-			throws IOException {
-		final ModulePermissions modPermissions = new ModulePermissions(file.getName());		
-		System.err.println(modPermissions);
-		ClassVisitor cVisitor = new ClassVisitor(Opcodes.ASM4) {
-			@Override
-			public MethodVisitor visitMethod(int access, String name,
-					String desc, String signature, String[] exceptions) {
-				ExtractorVisitor visitor = new ExtractorVisitor(Opcodes.ASM4);
-				visitor.setPermissions(permissions);
-				visitor.setModulePermissions(modPermissions);
-				return visitor;
+	/**
+	 * Examines all the jar files found on the path specified in the
+	 * constructor.
+	 * 
+	 * @param permissions
+	 *            a collection into which module permissions will be placed
+	 */
+	public void examineFiles(Collection<ModulePermissions> permissions) {
+		for (String filePath : filePaths) {
+			try {
+				JarFile file = new JarFile(new File(filePath));
+				ModulePermissions permission = examineFile(file);
+				if (permission != null) {
+					permissions.add(permission);
+				}
+			} catch (ZipException e) {
+				System.err.println("Bad jar: " + filePath);
+			} catch (IOException e) {
+				throw new IllegalArgumentException(e);
 			}
-		};
+		}
+	}
+
+	public static ModulePermissions examineFile(JarFile file) {
+		ModulePermissions permissions = null;
+		try {
+			permissions = visitClasses(file);
+			if (!permissions.getPermissions().isEmpty()) {
+				System.out.println(permissions);
+			}
+
+		} catch (SecurityException se) {
+			LOGGER.log(Level.SEVERE, "Problem looking at: " + file.getName(),
+					se);
+		} catch (IOException e) {
+			LOGGER.log(Level.SEVERE, "Problem looking at: " + file.getName(), e);
+		} catch (Exception e) {
+			LOGGER.log(Level.SEVERE, "Problem looking at: " + file.getName(), e);
+		}
+		return permissions;
+	}
+
+	private static ModulePermissions visitClasses(JarFile file)
+			throws IOException {
+		final ModulePermissions modPermissions = new ModulePermissions(
+				new File(file.getName()).getName());
+		String className;
 		Enumeration<? extends ZipEntry> entries = file.entries();
 		while (entries.hasMoreElements()) {
 			ZipEntry entry = entries.nextElement();
 			String name = entry.getName();
 			if (name.endsWith(".class")) {
 				ClassReader cr = new ClassReader(file.getInputStream(entry));
-				cr.accept(cVisitor, ClassReader.SKIP_DEBUG);
+				className = cr.getClassName();
+				cr.accept(new ExtractorClassVisitor(className, modPermissions),
+						0);
 			}
 		}
-		System.out.println(modPermissions);
+		return modPermissions;
 	}
 
 }

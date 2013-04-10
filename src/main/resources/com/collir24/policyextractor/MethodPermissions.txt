@@ -2,145 +2,144 @@ java/awt/Graphics2D	setComposite	(Ljava/awt/Composite;)V	java.awt.AWTPermission	
 java/awt/Robot	<init>	()V	java.awt.AWTPermission	createRobot	
 java/awt/Robot	<init>	(Ljava/awt/GraphicsDevice;)V	java.awt.AWTPermission	createRobot	
 java/awt/Toolkit	addAWTEventListener	(Ljava/awt/event/AWTEventListener;J)V	java.awt.AWTPermission	listenToAllAWTEvents	
-java/awt/Toolkit	removeAWTEventListener	(Ljava/awt/event/AWTEventListener;)V	java.awt.AWTPermission	listenToAllAWTEvents	
 java/awt/Toolkit	getPrintJob	(Ljava/awt/Frame;Ljava/lang/String;Ljava/util/Properties;)Ljava/awt/PrintJob;	java.lang.RuntimePermission	queuePrintJob	
 java/awt/Toolkit	getSystemClipboard	()Ljava/awt/datatransfer/Clipboard;	java.awt.AWTPermission	accessClipboard	
 java/awt/Toolkit	getSystemEventQueue	()Ljava/awt/EventQueue;	java.awt.AWTPermission	accessEventQueue	
+java/awt/Toolkit	removeAWTEventListener	(Ljava/awt/event/AWTEventListener;)V	java.awt.AWTPermission	listenToAllAWTEvents	
 java/awt/Window	<init>	(Ljava/awt/Frame;)V	java.awt.AWTPermission	showWindowWithoutWarningBanner
 java/beans/Beans	setDesignTime	(Z)V	java.util.PropertyPermission	*	read,write
 java/beans/Beans	setGuiAvailable	(Z)V	java.util.PropertyPermission	*	read,write
 java/beans/Introspector	setBeanInfoSearchPath	([Ljava/lang/String;)V	java.util.PropertyPermission	*	read,write
 java/beans/PropertyEditorManager	registerEditor	(Ljava/lang/Class;Ljava/lang/Class;)V	java.util.PropertyPermission	*	read,write
 java/beans/PropertyEditorManager	setEditorSearchPath	([Ljava/lang/String;)V	java.util.PropertyPermission	*	read,write
+java/io/File	canRead	()Z	java.io.FilePermission	{name}	read
+java/io/File	canWrite	()Z	java.io.FilePermission	{name}	write
+java/io/File	createNewFile	()Z	java.io.FilePermission	{name}	write
+java/io/File	createTempFile	(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;	java.io.FilePermission	{name}	write
+java/io/File	createTempFile	(Ljava/lang/String;Ljava/lang/String;Ljava/io/File;)Ljava/io/File;	java.io.FilePermission	{name}	write
 java/io/File	delete	()Z	java.io.FilePermission	{name}	delete
 java/io/File	deleteOnExit	()V	java.io.FilePermission	{name}	delete
-java/io/FileInputStream	<init>	(Ljava/io/FileDescriptor;)V	java.io.FilePermission	readFileDescriptor	
-java/io/FileInputStream	<init>	(Ljava/lang/String;)V	java.io.FilePermission	{name}	read
-java/io/FileInputStream	<init>	(Ljava/io/File;)V	java.io.FilePermission	{name}	read
 java/io/File	exists	()Z	java.io.FilePermission	{name}	read
-java/io/File	canRead	()Z	java.io.FilePermission	{name}	read
-java/io/File	isFile	()Z	java.io.FilePermission	{name}	read
 java/io/File	isDirectory	()Z	java.io.FilePermission	{name}	read
+java/io/File	isFile	()Z	java.io.FilePermission	{name}	read
 java/io/File	isHidden	()Z	java.io.FilePermission	{name}	read
 java/io/File	lastModified	()J	java.io.FilePermission	{name}	read
 java/io/File	length	()J	java.io.FilePermission	{name}	read
 java/io/File	list	()[Ljava/lang/String;	java.io.FilePermission	{name}	read
 java/io/File	list	(Ljava/io/FilenameFilter;)[Ljava/lang/String;	java.io.FilePermission	{name}	read
 java/io/File	listFiles	()[Ljava/io/File;	java.io.FilePermission	{name}	read
-java/io/File	listFiles	(Ljava/io/FilenameFilter;)[Ljava/io/File;	java.io.FilePermission	{name}	read
 java/io/File	listFiles	(Ljava/io/FileFilter;)[Ljava/io/File;	java.io.FilePermission	{name}	read
-java/io/RandomAccessFile	<init>	(Ljava/lang/String;Ljava/lang/String;)V	java.io.FilePermission	{name}	read
-java/io/RandomAccessFile	<init>	(Ljava/io/File;Ljava/lang/String;)V	java.io.FilePermission	{name}	read
-java/io/FileOutputStream	<init>	(Ljava/io/FileDescriptor;)V	java.lang.RuntimePermission	writeFileDescriptor	
-java/io/FileOutputStream	<init>	(Ljava/io/File;)V	java.io.FilePermission	{name}	write
-java/io/FileOutputStream	<init>	(Ljava/lang/String;)V	java.io.FilePermission	{name}	write
-java/io/FileOutputStream	<init>	(Ljava/lang/String;Z)V	java.io.FilePermission	{name}	write
-java/io/File	canWrite	()Z	java.io.FilePermission	{name}	write
-java/io/File	createNewFile	()Z	java.io.FilePermission	{name}	write
-java/io/File	createTempFile	(Ljava/lang/String;Ljava/lang/String;)Ljava/io/File;	java.io.FilePermission	{name}	write
-java/io/File	createTempFile	(Ljava/lang/String;Ljava/lang/String;Ljava/io/File;)Ljava/io/File;	java.io.FilePermission	{name}	write
+java/io/File	listFiles	(Ljava/io/FilenameFilter;)[Ljava/io/File;	java.io.FilePermission	{name}	read
 java/io/File	mkdir	()Z	java.io.FilePermission	{name}	write
 java/io/File	mkdirs	()Z	java.io.FilePermission	{name}	write
 java/io/File	renameTo	(Ljava/io/File;)Z	java.io.FilePermission	{name}	write
 java/io/File	setLastModified	(J)Z	java.io.FilePermission	{name}	write
 java/io/File	setReadOnly	()Z	java.io.FilePermission	{name}	write
+java/io/FileInputStream	<init>	(Ljava/io/File;)V	java.io.FilePermission	{name}	read
+java/io/FileInputStream	<init>	(Ljava/io/FileDescriptor;)V	java.io.FilePermission	readFileDescriptor	
+java/io/FileInputStream	<init>	(Ljava/lang/String;)V	java.io.FilePermission	{name}	read
+java/io/FileOutputStream	<init>	(Ljava/io/File;)V	java.io.FilePermission	{name}	write
+java/io/FileOutputStream	<init>	(Ljava/io/FileDescriptor;)V	java.lang.RuntimePermission	writeFileDescriptor	
+java/io/FileOutputStream	<init>	(Ljava/lang/String;)V	java.io.FilePermission	{name}	write
+java/io/FileOutputStream	<init>	(Ljava/lang/String;Z)V	java.io.FilePermission	{name}	write
+java/io/RandomAccessFile	<init>	(Ljava/io/File;Ljava/lang/String;)V	java.io.FilePermission	{name}	read
 java/io/RandomAccessFile	<init>	(Ljava/lang/String;Ljava/lang/String;)V	java.io.FilePermission	{name}	read,write
 java/lang/Class	forName	(Ljava/lang/String;ZLjava/lang/ClassLoader;)Ljava/lang/Class;	java.lang.RuntimePermission	getClassLoader	
 java/lang/Class	getClassLoader	()Ljava/lang/ClassLoader;	java.lang.RuntimePermission	getClassLoader	
-java/lang/Class	getDeclaredClasses	()[Ljava/lang/Class;	java.lang.RuntimePermission	accessDeclaredMembers	
+java/lang/Class	getConstructor	([Ljava/lang/Class;)Ljava/lang/reflect/Constructor;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getDeclaredClasses	()[Ljava/lang/Class;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
-java/lang/Class	getDeclaredFields	()[Ljava/lang/reflect/Field;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
-java/lang/Class	getDeclaredMethods	()[Ljava/lang/reflect/Method;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
+java/lang/Class	getDeclaredClasses	()[Ljava/lang/Class;	java.lang.RuntimePermission	accessDeclaredMembers	
 java/lang/Class	getDeclaredConstructors	()[Ljava/lang/reflect/Constructor;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getDeclaredField	(Ljava/lang/String;)Ljava/lang/reflect/Field;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
+java/lang/Class	getDeclaredFields	()[Ljava/lang/reflect/Field;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getDeclaredMethod	(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
-java/lang/Class	getConstructor	([Ljava/lang/Class;)Ljava/lang/reflect/Constructor;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
+java/lang/Class	getDeclaredMethods	()[Ljava/lang/reflect/Method;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getProtectionDomain	()Ljava/security/ProtectionDomain;	java.lang.RuntimePermission	getProtectionDomain	
-java/lang/ClassLoader	getSystemClassLoader	()Ljava/lang/ClassLoader;	java.lang.RuntimePermission	getClassLoader	
 java/lang/ClassLoader	getParent	()Ljava/lang/ClassLoader;	java.lang.RuntimePermission	getClassLoader	
-java/lang/Runtime	exec	(Ljava/lang/String;)Ljava/lang/Process;	java.io.FilePermission	{command}	execute
-java/lang/Runtime	exec	(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/Process;	java.io.FilePermission	{command}	execute
+java/lang/ClassLoader	getSystemClassLoader	()Ljava/lang/ClassLoader;	java.lang.RuntimePermission	getClassLoader	
+java/lang/reflect/AccessibleObject	setAccessible	([Ljava/lang/reflect/AccessibleObject;Z)V	java.lang.reflect.ReflectPermission	suppressAccessChecks	
+java/lang/reflect/AccessibleObject	setAccessible	(Z)V	java.lang.reflect.ReflectPermission	suppressAccessChecks	
+java/lang/Runtime	addShutdownHook	(Ljava/lang/Thread;)V	java.lang.RuntimePermission	shutdownHooks	
 java/lang/Runtime	exec	([Ljava/lang/String;)Ljava/lang/Process;	java.io.FilePermission	{command}	execute
 java/lang/Runtime	exec	([Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/Process;	java.io.FilePermission	{command}	execute
+java/lang/Runtime	exec	(Ljava/lang/String;)Ljava/lang/Process;	java.io.FilePermission	{command}	execute
+java/lang/Runtime	exec	(Ljava/lang/String;[Ljava/lang/String;)Ljava/lang/Process;	java.io.FilePermission	{command}	execute
 java/lang/Runtime	exit	(I)V	java.lang.RuntimePermission	exitVM.{status}	
-java/lang/Runtime	runFinalizersOnExit	(Z)V	java.lang.RuntimePermission	exitVM.0	
-java/lang/System	exit	(I)V	java.lang.RuntimePermission	exitVM.{status}	
-java/lang/System	runFinalizersOnExit	(Z)V	java.lang.RuntimePermission	exitVM.0	
-java/lang/Runtime	addShutdownHook	(Ljava/lang/Thread;)V	java.lang.RuntimePermission	shutdownHooks	
-java/lang/Runtime	removeShutdownHook	(Ljava/lang/Thread;)Z	java.lang.RuntimePermission	shutdownHooks	
 java/lang/Runtime	load	(Ljava/lang/String;)V	java.lang.RuntimePermission	loadLibrary.{libName}	
 java/lang/Runtime	loadLibrary	(Ljava/lang/String;)V	java.lang.RuntimePermission	loadLibrary.{libName}	
+java/lang/Runtime	removeShutdownHook	(Ljava/lang/Thread;)Z	java.lang.RuntimePermission	shutdownHooks	
+java/lang/Runtime	runFinalizersOnExit	(Z)V	java.lang.RuntimePermission	exitVM.0	
+java/lang/System	exit	(I)V	java.lang.RuntimePermission	exitVM.{status}	
+java/lang/System	getProperties	()Ljava/util/Properties;	java.util.PropertyPermission	*	read,write
+java/lang/System	getProperty	(Ljava/lang/String;)Ljava/lang/String;	java.util.PropertyPermission	{key}	read
+java/lang/System	getProperty	(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;	java.util.PropertyPermission	{key}	read
 java/lang/System	load	(Ljava/lang/String;)V	java.lang.RuntimePermission	loadLibrary.{libName}	
 java/lang/System	loadLibrary	(Ljava/lang/String;)V	java.lang.RuntimePermission	loadLibrary.{libName}	
-java/lang/System	getProperties	()Ljava/util/Properties;	java.util.PropertyPermission	*	read,write
-java/lang/System	setProperties	(Ljava/util/Properties;)V	java.util.PropertyPermission	*	read,write
-java/lang/System	getProperty	(Ljava/lang/String;)Ljava/lang/String;	java.util.PropertyPermission	{key}	read
-java/lang/System	getProperty	(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;	{key}	read
+java/lang/System	runFinalizersOnExit	(Z)V	java.lang.RuntimePermission	exitVM.0	
+java/lang/System	setErr	(Ljava/io/PrintStream;)V	java.lang.RuntimePermission	setIO	
 java/lang/System	setIn	(Ljava/io/InputStream;)V	java.lang.RuntimePermission	setIO	
 java/lang/System	setOut	(Ljava/io/PrintStream;)V	java.lang.RuntimePermission	setIO	
-java/lang/System	setErr	(Ljava/io/PrintStream;)V	java.lang.RuntimePermission	setIO	
+java/lang/System	setProperties	(Ljava/util/Properties;)V	java.util.PropertyPermission	*	read,write
 java/lang/System	setProperty	(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;	java.util.PropertyPermission	{key}	write
 java/lang/System	setSecurityManager	(Ljava/lang/SecurityManager;)V	java.lang.RuntimePermission	setSecurityManager	
-java/lang/Thread	getContextClassLoader	()Ljava/lang/ClassLoader;	java.lang.RuntimePermission	getClassLoader	
-java/lang/Thread	setContextClassLoader	(Ljava/lang/ClassLoader;)V	java.lang.RuntimePermission	setClassLoader	
+java/lang/Thread	<init>	()V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/Thread	<init>	(Ljava/lang/Runnable;)V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/Thread	<init>	(Ljava/lang/Runnable;Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/Thread	<init>	(Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/Thread	<init>	(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;)V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/Thread	checkAccess	()V	java.lang.RuntimePermission	modifyThread	
-java/lang/Thread	interrupt	()V	java.lang.RuntimePermission	modifyThread	
-java/lang/Thread	suspend	()V	java.lang.RuntimePermission	modifyThread	
-java/lang/Thread	resume	()V	java.lang.RuntimePermission	modifyThread	
-java/lang/Thread	setPriority	(I)V	java.lang.RuntimePermission	modifyThread	
-java/lang/Thread	setName	(Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThread	
-java/lang/Thread	setDaemon	(Z)V	java.lang.RuntimePermission	modifyThread	
 java/lang/Thread	enumerate	([Ljava/lang/Thread;)I	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/Thread	getContextClassLoader	()Ljava/lang/ClassLoader;	java.lang.RuntimePermission	getClassLoader	
+java/lang/Thread	interrupt	()V	java.lang.RuntimePermission	modifyThread	
+java/lang/Thread	resume	()V	java.lang.RuntimePermission	modifyThread	
+java/lang/Thread	setContextClassLoader	(Ljava/lang/ClassLoader;)V	java.lang.RuntimePermission	setClassLoader	
+java/lang/Thread	setDaemon	(Z)V	java.lang.RuntimePermission	modifyThread	
+java/lang/Thread	setName	(Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThread	
+java/lang/Thread	setPriority	(I)V	java.lang.RuntimePermission	modifyThread	
 java/lang/Thread	stop	()V	java.lang.RuntimePermission	modifyThread	
 java/lang/Thread	stop	()V	java.lang.RuntimePermission	stopThread	
 java/lang/Thread	stop	(Ljava/lang/Throwable;)V	java.lang.RuntimePermission	modifyThread	
 java/lang/Thread	stop	(Ljava/lang/Throwable;)V	java.lang.RuntimePermission	stopThread	
-java/lang/Thread	<init>	()V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/Thread	<init>	(Ljava/lang/Runnable;)V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/Thread	<init>	(Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/Thread	<init>	(Ljava/lang/Runnable;Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/Thread	suspend	()V	java.lang.RuntimePermission	modifyThread	
 java/lang/ThreadGroup	<init>	(Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	<init>	(Ljava/lang/ThreadGroup;Ljava/lang/String;)V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/Thread	<init>	(Ljava/lang/ThreadGroup;Ljava/lang/Runnable;)V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	checkAccess	()V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/ThreadGroup	destroy	()V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	enumerate	([Ljava/lang/Thread;)I	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	enumerate	([Ljava/lang/Thread;Z)I	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	enumerate	([Ljava/lang/ThreadGroup;)I	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	enumerate	([Ljava/lang/ThreadGroup;Z)I	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	getParent	()Ljava/lang/ThreadGroup;	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/ThreadGroup	interrupt	()V	java.lang.RuntimePermission	modifyThread	
+java/lang/ThreadGroup	interrupt	()V	java.lang.RuntimePermission	modifyThreadGroup	
+java/lang/ThreadGroup	resume	()V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	setDaemon	(Z)V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	setMaxPriority	(I)V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/ThreadGroup	suspend	()V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/ThreadGroup	resume	()V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/ThreadGroup	destroy	()V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/ThreadGroup	interrupt	()V	java.lang.RuntimePermission	modifyThreadGroup	
-java/lang/ThreadGroup	interrupt	()V	java.lang.RuntimePermission	modifyThread	
-java/lang/ThreadGroup	stop	()V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	stop	()V	java.lang.RuntimePermission	modifyThread	
+java/lang/ThreadGroup	stop	()V	java.lang.RuntimePermission	modifyThreadGroup	
 java/lang/ThreadGroup	stop	()V	java.lang.RuntimePermission	stopThread	
-java/lang/reflect/AccessibleObject	setAccessible	([Ljava/lang/reflect/AccessibleObject;Z)V	java.lang.reflect.ReflectPermission	suppressAccessChecks	
-java/lang/reflect/AccessibleObject	setAccessible	(Z)V	java.lang.reflect.ReflectPermission	suppressAccessChecks	
+java/lang/ThreadGroup	suspend	()V	java.lang.RuntimePermission	modifyThreadGroup	
 java/net/Authenticator	requestPasswordAuthentication	(Ljava/net/InetAddress;ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Ljava/net/PasswordAuthentication;	java.net.Permission	requestPasswordAuthentication	
 java/net/Authenticator	setDefault	(Ljava/net/Authenticator;)V	java.net.Permission	setDefaultauthenticator	
+java/net/DatagramSocket	<init>	()V	java.net.SocketPermission	localhost:{port}	listen
+java/net/DatagramSocket	getLocalAddress	()Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
+java/net/DatagramSocket	send	(Ljava/net/DatagramPacket;)V	java.net.SocketPermission	{host}:{port}	accept,connect,resolve
+java/net/HttpURLConnection	setFollowRedirects	(Z)V	java.lang.RuntimePermission	setFactory	
+java/net/InetAddress	getAllByName	(Ljava/lang/String;)[Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
+java/net/InetAddress	getHostName	()Ljava/lang/String;	java.net.SocketPermission	{host}	resolve
+java/net/InetAddress	getLocalHost	()Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
+java/net/MulticastSocket	<init>	()V	java.net.SocketPermission	localhost:{port}	listen
 java/net/MulticastSocket	joinGroup	(Ljava/net/InetAddress;)V	java.net.SocketPermission	{hostAddress}	accept,connect
 java/net/MulticastSocket	leaveGroup	(Ljava/net/InetAddress;)V	java.net.SocketPermission	{hostAddress}	accept,connect
-java/net/DatagramSocket	send	(Ljava/net/DatagramPacket;)V	java.net.SocketPermission	{host}:{port}	accept,connect,resolve
 java/net/MulticastSocket	send	(Ljava/net/DatagramPacket;B)V	java.net.SocketPermission	{host}:{port}	accept,connect,resolve
-java/net/InetAddress	getHostName	()Ljava/lang/String;	java.net.SocketPermission	{host}	resolve
-java/net/InetAddress	getAllByName	(Ljava/lang/String;)[Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
-java/net/InetAddress	getLocalHost	()Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
-java/net/DatagramSocket	getLocalAddress	()Ljava/net/InetAddress;	java.net.SocketPermission	{host}	resolve
 java/net/ServerSocket	<init>	()V	java.net.SocketPermission	localhost:{port}	listen
-java/net/DatagramSocket	<init>	()V	java.net.SocketPermission	localhost:{port}	listen
-java/net/MulticastSocket	<init>	()V	java.net.SocketPermission	localhost:{port}	listen
 java/net/ServerSocket	accept	()Ljava/net/Socket;	java.net.SocketPermission	{host}:{port}	accept
 java/net/ServerSocket	setSocketFactory	(Ljava/net/SocketImplFactory;)V	java.lang.RuntimePermission	setFactory	
+java/net/Socket	<init>	()V	java.net.SocketPermission	{host}:{port}	connect
 java/net/Socket	setSocketImplFactory	(Ljava/net/SocketImplFactory;)V	java.lang.RuntimePermission	setFactory	
 java/net/URL	setURLStreamHandlerFactory	(Ljava/net/URLStreamHandlerFactory;)V	java.lang.RuntimePermission	setFactory	
 java/net/URLConnection	setContentHandlerFactory	(Ljava/net/ContentHandlerFactory;)V	java.lang.RuntimePermission	setFactory	
 java/net/URLConnection	setFileNameMap	(Ljava/net/FileNameMap;)V	java.lang.RuntimePermission	setFactory	
-java/net/HttpURLConnection	setFollowRedirects	(Z)V	java.lang.RuntimePermission	setFactory	
 java/rmi/activation/ActivationGroup	createGroup	(Ljava/rmi/activation/ActivationGroupID;Ljava/rmi/activation/ActivationGroupDesc;J)Ljava/rmi/activation/ActivationGroup;	java.lang.RuntimePermission	setFactory	
 java/rmi/activation/ActivationGroup	setSystem	(Ljava/rmi/activation/ActivationSystem;)V	java.lang.RuntimePermission	setFactory	
 java/rmi/server/RMISocketFactory	setSocketFactory	(Ljava/rmi/server/RMISocketFactory;)V	java.lang.RuntimePermission	setFactory	
-java/net/Socket	<init>	()V	java.net.SocketPermission	{host}:{port}	connect

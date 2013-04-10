@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class Permission {
+public class Permission implements Comparable<Permission> {
 
 	private final String permission;
 	private final String target;
@@ -90,6 +90,10 @@ public class Permission {
 		} else if (!target.equals(other.target))
 			return false;
 		return true;
+	}
+
+	public int compareTo(Permission arg0) {
+		return permission.compareTo(arg0.permission);
 	}
 
 }

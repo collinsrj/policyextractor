@@ -6,18 +6,19 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class MethodPermissions {
 
-	private final Map<String, List<Permission>> methodPermissions;
+	private final Map<MethodPermissionKey, List<Permission>> methodPermissions;
 	private static final String INIT_FILE_PATH = "MethodPermissions.txt";
 
 	public MethodPermissions() {
 		InputStream is = null;
-		methodPermissions = new HashMap<String, List<Permission>>();
-		StringBuilder sb = new StringBuilder();
+		methodPermissions = new HashMap<MethodPermissionKey, List<Permission>>();
 		try {
 			is = MethodPermissions.class.getResourceAsStream(INIT_FILE_PATH);
 			BufferedReader reader = new BufferedReader(
@@ -25,21 +26,18 @@ public class MethodPermissions {
 			while (reader.ready()) {
 				String line = reader.readLine();
 				String[] values = line.split("\t");
-				sb.setLength(0);
-				String key = sb.append(values[0]).append(":").append(values[1])
-						.append(":").append(values[2]).toString();
-				List<Permission> permList = methodPermissions.get(key); 
+				MethodPermissionKey key = new MethodPermissionKey(values[0],
+						values[1], values[2]);
+				List<Permission> permList = methodPermissions.get(key);
 				if (permList == null) {
 					permList = new ArrayList<Permission>();
 				}
 				switch (values.length) {
-				case 5:					
-					permList.add(new Permission(values[3],
-							values[4]));					
+				case 5:
+					permList.add(new Permission(values[3], values[4]));
 					break;
 				case 6:
-					permList.add(new Permission(values[3],
-							values[4], values[5]));					
+					permList.add(new Permission(values[3], values[4], values[5]));
 					break;
 				default:
 					throw new IllegalStateException(
@@ -71,11 +69,23 @@ public class MethodPermissions {
 
 	}
 
-	protected boolean contains(String key) {
+	protected boolean contains(MethodPermissionKey key) {
 		return methodPermissions.containsKey(key);
 	}
 
-	public List<Permission> get(String key) {
+	public List<Permission> get(MethodPermissionKey key) {
 		return methodPermissions.get(key);
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Set<Permission> getAllPermissions() {
+		Set<Permission> perms = new HashSet<Permission>();
+		for (List<Permission> permissionList : methodPermissions.values()) {
+			perms.addAll(permissionList);
+		}
+		return perms;
 	}
 }
