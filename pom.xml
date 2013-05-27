@@ -54,4 +54,11 @@
 			<version>2.0.2</version>
 		</dependency>
 	</dependencies>
+	
+	<scm>
+	    <url>https://github.com/collinsrj/policyextractor</url>
+		<connection>scm:git:git://github.com/collinsrj/policyextractor.git</connection>
+		<developerConnection>scm:git:git@github.com:collinsrj/policyextractor.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 </project>
