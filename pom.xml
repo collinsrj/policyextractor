@@ -70,9 +70,7 @@
 	</build>
 
 	<scm>
-		<url>https://github.com/collinsrj/policyextractor</url>
-		<connection>scm:git:https://ssh.github.com:443/collinsrj/policyextractor.git</connection>
-		<developerConnection>scm:git:https@ssh.github.com:443/collinsrj/policyextractor.git</developerConnection>
-		<tag>HEAD</tag>
+		<connection>scm:git:git://github.com/collinsrj/policyextractor.git</connection>
+		<developerConnection>scm:git:git@github.com:collinsrj/policyextractor.git</developerConnection>
 	</scm>
 </project>
