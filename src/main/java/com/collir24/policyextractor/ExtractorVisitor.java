@@ -1,3 +1,18 @@
+/*
+ * Copyright 2013 Robert Collins
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.collir24.policyextractor;
 
 import java.util.ArrayList;
@@ -8,13 +23,14 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 import com.collir24.policyextractor.modulepermission.DatagramPermission;
+import com.collir24.policyextractor.modulepermission.DefineClassInPackagePermission;
+import com.collir24.policyextractor.modulepermission.ExecPermission;
 import com.collir24.policyextractor.modulepermission.FileInputStreamPermission;
 import com.collir24.policyextractor.modulepermission.FileOutputStreamPermission;
-import com.collir24.policyextractor.modulepermission.GetDeclaredFieldPermission;
-import com.collir24.policyextractor.modulepermission.PropertyPermission;
-import com.collir24.policyextractor.modulepermission.RandomAccessFilePermission;
 import com.collir24.policyextractor.modulepermission.LoadLibPermission;
 import com.collir24.policyextractor.modulepermission.LoadPermission;
+import com.collir24.policyextractor.modulepermission.PropertyPermission;
+import com.collir24.policyextractor.modulepermission.RandomAccessFilePermission;
 import com.collir24.policyextractor.modulepermission.SetPropertyPermission;
 import com.collir24.policyextractor.modulepermission.ThreadNamePermission;
 
@@ -67,10 +83,8 @@ public class ExtractorVisitor extends MethodVisitor {
 			modulePermissions.add(new RandomAccessFilePermission(PERMISSIONS
 					.get(key), className, key, line, (String) object,
 					(String) object2));
-		} else if (MethodPermissionKey.SET_PROPERTY
-				.equals(key)
-				&& object instanceof String
-				&& object2 instanceof String) {
+		} else if (MethodPermissionKey.SET_PROPERTY.equals(key)
+				&& object instanceof String && object2 instanceof String) {
 			modulePermissions.add(new SetPropertyPermission(PERMISSIONS
 					.get(key), className, key, line, (String) object,
 					(String) object2));
@@ -110,10 +124,6 @@ public class ExtractorVisitor extends MethodVisitor {
 				.equals(key) && object instanceof String) {
 			modulePermissions.add(new RandomAccessFilePermission(PERMISSIONS
 					.get(key), className, key, line, (String) object));
-		} else if (MethodPermissionKey.GET_DECLARED_FIELD.equals(key)
-				&& object instanceof String) {
-			modulePermissions.add(new GetDeclaredFieldPermission(PERMISSIONS
-					.get(key), className, key, line, (String) object));
 		} else if (MethodPermissionKey.RUNTIME_LOAD.equals(key)
 				&& object instanceof String) {
 			modulePermissions.add(new LoadPermission(PERMISSIONS.get(key),
@@ -126,6 +136,16 @@ public class ExtractorVisitor extends MethodVisitor {
 				&& object instanceof Integer) {
 			modulePermissions.add(new DatagramPermission(PERMISSIONS.get(key),
 					className, key, line, ((Integer) object).intValue()));
+		} else if (MethodPermissionKey.EXEC.equals(key)
+				&& object instanceof String) {
+			modulePermissions.add(new ExecPermission(PERMISSIONS.get(key),
+					className, key, line, (String) object));
+		} else if ((MethodPermissionKey.DEFINE_CLASS_1.equals(key)
+				|| MethodPermissionKey.DEFINE_CLASS_2.equals(key) || MethodPermissionKey.DEFINE_CLASS_3
+					.equals(key)) && object instanceof String) {
+			modulePermissions
+					.add(new DefineClassInPackagePermission(PERMISSIONS
+							.get(key), className, key, line, (String) object));
 		} else {
 			// we haven't found any more specific permission
 			addPermission(key);
@@ -133,7 +153,8 @@ public class ExtractorVisitor extends MethodVisitor {
 	}
 
 	private void addPermission(MethodPermissionKey key) {
-		if (MethodPermissionKey.DATAGRAM_CONSTRUCTOR.equals(key) && intOnStack != null) {
+		if (MethodPermissionKey.DATAGRAM_CONSTRUCTOR.equals(key)
+				&& intOnStack != null) {
 			modulePermissions.add(new DatagramPermission(PERMISSIONS.get(key),
 					className, key, line, intOnStack));
 		} else if (PERMISSIONS.contains(key)) {

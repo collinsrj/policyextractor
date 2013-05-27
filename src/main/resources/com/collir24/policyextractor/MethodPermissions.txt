@@ -51,6 +51,7 @@ java/lang/Class	getDeclaredClasses	()[Ljava/lang/Class;	java.lang.RuntimePermiss
 java/lang/Class	getDeclaredClasses	()[Ljava/lang/Class;	java.lang.RuntimePermission	accessDeclaredMembers	
 java/lang/Class	getDeclaredConstructors	()[Ljava/lang/reflect/Constructor;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getDeclaredField	(Ljava/lang/String;)Ljava/lang/reflect/Field;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
+java/lang/Class	getDeclaredField	(Ljava/lang/String;)Ljava/lang/reflect/Field;	java.lang.RuntimePermission	accessDeclaredMembers
 java/lang/Class	getDeclaredFields	()[Ljava/lang/reflect/Field;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getDeclaredMethod	(Ljava/lang/String;[Ljava/lang/Class;)Ljava/lang/reflect/Method;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
 java/lang/Class	getDeclaredMethods	()[Ljava/lang/reflect/Method;	java.lang.RuntimePermission	accessClassInPackage.{pkgName}
@@ -143,4 +144,13 @@ java/net/URLConnection	setContentHandlerFactory	(Ljava/net/ContentHandlerFactory
 java/net/URLConnection	setFileNameMap	(Ljava/net/FileNameMap;)V	java.lang.RuntimePermission	setFactory	
 java/rmi/activation/ActivationGroup	createGroup	(Ljava/rmi/activation/ActivationGroupID;Ljava/rmi/activation/ActivationGroupDesc;J)Ljava/rmi/activation/ActivationGroup;	java.lang.RuntimePermission	setFactory	
 java/rmi/activation/ActivationGroup	setSystem	(Ljava/rmi/activation/ActivationSystem;)V	java.lang.RuntimePermission	setFactory	
-java/rmi/server/RMISocketFactory	setSocketFactory	(Ljava/rmi/server/RMISocketFactory;)V	java.lang.RuntimePermission	setFactory	
+java/rmi/server/RMISocketFactory	setSocketFactory	(Ljava/rmi/server/RMISocketFactory;)V	java.lang.RuntimePermission	setFactory
+java/io/ObjectInputStream	enableResolveObject	(Z)Z	java.io.SerializablePermission	enableSubstitution
+java/io/ObjectInputStream	enableReplaceObject	(Z)Z	java.io.SerializablePermission	enableSubstitution
+java/io/ObjectInputStream	<init>	()V	java.io.SerializablePermission	enableSubclassImplementation
+java/net/ServerSocket	implAccept	(Ljava/net/Socket;)V	java.net.SocketPermission	{host}:{port}	accept
+java/security/IdentityScope	setSystemScope	(Ljava/security/IdentityScope;)V	java.security.SecurityPermission	setSystemScope
+java/lang/ClassLoader	defineClass	(Ljava/lang/String;[BIILjava/security/ProtectionDomain;)Ljava/lang/Class;	java.lang.RuntimePermission	defineClassInPackage.{packageName}
+java/lang/ClassLoader	defineClass	(Ljava/lang/String;[BII)Ljava/lang/Class;	java.lang.RuntimePermission	defineClassInPackage.{packageName}
+java/lang/ClassLoader	defineClass	(Ljava/lang/String;Ljava/nio/ByteBuffer;Ljava/security/ProtectionDomain;)Ljava/lang/Class;	java.lang.RuntimePermission	defineClassInPackage.{packageName}
+java/lang/ClassLoader	defineClass	([BII)Ljava/lang/Class;	java.lang.RuntimePermission	defineClassInPackage.{packageName}

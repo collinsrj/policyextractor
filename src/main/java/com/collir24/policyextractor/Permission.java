@@ -1,3 +1,18 @@
+/*
+ * Copyright 2013 Robert Collins
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.collir24.policyextractor;
 
 import java.util.Arrays;
@@ -17,8 +32,8 @@ public class Permission implements Comparable<Permission> {
 	 */
 	public Permission(String permission, String target) {
 		super();
-		this.permission = permission;
-		this.target = target;
+		this.permission = permission.trim();
+		this.target = target.trim();
 		this.actions = Collections.emptyList();
 	}
 
@@ -30,9 +45,12 @@ public class Permission implements Comparable<Permission> {
 	 */
 	public Permission(String permission, String target, String actions) {
 		super();
-		this.permission = permission;
-		this.target = target;
+		this.permission = permission.trim();
+		this.target = target.trim();
 		String[] actionsArray = actions.split(",");
+		for (String action : actionsArray) {
+			action = action.trim();
+		}
 		this.actions = Arrays.asList(actionsArray);
 	}
 

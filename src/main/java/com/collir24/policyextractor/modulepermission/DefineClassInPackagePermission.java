@@ -22,17 +22,14 @@ import com.collir24.policyextractor.MethodPermissionKey;
 import com.collir24.policyextractor.ModulePermission;
 import com.collir24.policyextractor.Permission;
 
-public class DatagramPermission extends ModulePermission {
-	private final Integer port;
+public class DefineClassInPackagePermission extends ModulePermission {
+	private final String clazzName;
 
-	public DatagramPermission(List<Permission> list, String className,
-			MethodPermissionKey key, int line, Integer port) {
+	public DefineClassInPackagePermission(List<Permission> list,
+			String className, MethodPermissionKey key, int line,
+			String definedClassName) {
 		super(list, className, key, line);
-		this.port = port;
-	}
-
-	public int getPort() {
-		return port;
+		this.clazzName = definedClassName;
 	}
 
 	@Override
@@ -42,9 +39,34 @@ public class DatagramPermission extends ModulePermission {
 			throw new IllegalStateException(
 					"Should only be one policy for this permission.");
 		}
-		String policy = policyStrings.iterator().next();
-		policyStrings.clear();
-		policyStrings.add(policy.replace("{port}", Integer.toString(port)));
+		String packageName = getPackageName();
+		if (!packageName.isEmpty()) {
+			String policy = policyStrings.iterator().next();
+			policyStrings.clear();
+			policyStrings.add(policy.replace("{packageName}", packageName));
+		}
 		return policyStrings;
+
+	}
+
+	/**
+	 * Get the package name from the class name
+	 * 
+	 * @return the package name or an empty string if the class is in the
+	 *         default package
+	 */
+	private String getPackageName() {
+		String[] classStringComponents = clazzName.split("\\.");
+		if (classStringComponents.length > 1) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < classStringComponents.length - 1; i++) {
+				sb.append(classStringComponents[i]).append(".");
+			}
+			sb.deleteCharAt(sb.length() - 1);
+			return sb.toString();
+		} else {
+			return "";
+		}
+
 	}
 }
